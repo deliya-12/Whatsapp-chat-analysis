@@ -1,0 +1,25 @@
+#ifndef LRUCACHE_H
+#define LRUCACHE_H
+
+#include <unordered_map>
+#include <list>
+#include <string>
+#include <iostream>
+
+class LRUCache {
+public:
+    LRUCache(size_t capacity);
+    void put(const std::string& contact, int messages);
+    int get(const std::string& contact);
+    void printCache() const;
+
+private:
+    size_t capacity_;
+    std::list<std::pair<std::string, int>> cache_;
+    std::unordered_map<std::string, std::list<std::pair<std::string, int>>::iterator> map_;
+
+    void moveToFront(std::list<std::pair<std::string, int>>::iterator it);
+    void removeLRU();
+};
+
+#endif // LRUCACHE_H
